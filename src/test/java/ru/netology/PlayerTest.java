@@ -99,4 +99,51 @@ public class PlayerTest {
         String actual = String.valueOf(player.mostPlayerByGenre("Battle Royale"));
         assertEquals(expected, actual);
     }
+    @Test
+    public void addPlayGameNegativeValue() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Game game1 = store.publishGame("Uncharted", "Battle Royale");
+
+        Player player = new Player("Petya");
+
+
+
+        assertThrows(Exception.class, () -> {
+            player.play(game1, -1);
+
+        });
+    }
+
+    @Test
+    public void shouldMostPlayerByGenreNoInstallGame() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Call of Duty", "Battle Royale");
+        Game game1 = store.publishGame("Uncharted", "Battle Royale");
+        Game game3 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player = new Player("Petya");
+        player.installGame(game);
+        player.installGame(game1);
+        player.play(game, 3);
+        player.play(game1, 2);
+
+
+        String expected = null;
+        String actual = String.valueOf(player.mostPlayerByGenre("Аркады"));
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void shouldInstallNewGame() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Call of Duty", "Battle Royale");
+
+        Player player = new Player("Petya");
+        player.installGame(game);
+
+        boolean expected = true;
+        boolean actual = player.playedTime.containsKey(game);
+
+        assertEquals(expected, actual);
+    }
 }

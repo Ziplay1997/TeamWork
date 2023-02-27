@@ -41,4 +41,21 @@ public class PlayerTest {
         int actual = player.sumGenre("Battle Royale");
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void shouldThrowRunTimeException() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Call of Duty", "Battle Royale");
+        Game game1 = store.publishGame("Uncharted", "Battle Royale");
+        Game game3 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player = new Player("Petya");
+        player.installGame(game);
+
+
+        assertThrows(RuntimeException.class, () -> {
+            player.play(game3, 1);
+
+        });
+    }
 }

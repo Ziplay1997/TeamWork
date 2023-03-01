@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class GameStoreTest {
 
     @Test
-    public void shouldAddGame() {
+    public void shouldAddGame() { //1
 
         GameStore store = new GameStore();
         Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
@@ -16,19 +16,20 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldGetMostPlayerEquallyOne() {
+    public void shouldGetMostPlayerEquallyOne() {//8
 
         GameStore store = new GameStore();
 
         store.addPlayTime("Виктор", 1);
+        store.addPlayTime("Влад", 5);
 
         String actual = store.getMostPlayer();
-        String expected = "Виктор";
+        String expected = "Влад";
         assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldReturnFalseAddGames() {
+    public void shouldReturnFalseAddGames() {// 2
 
         GameStore store = new GameStore();
         Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
@@ -38,7 +39,7 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldReturnFalseContainsGame() {
+    public void shouldReturnFalseContainsGame() {// 3
 
         GameStore store = new GameStore();
 
@@ -48,7 +49,7 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldGetMostPlayer() {
+    public void shouldGetMostPlayer() {//4
 
         GameStore store = new GameStore();
 
@@ -63,7 +64,7 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldGetMostPlayerReturnNull() {
+    public void shouldGetMostPlayerReturnNull() {//5
 
         GameStore store = new GameStore();
 
@@ -73,7 +74,7 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldReturnNullGetMostPlayerNegativeValue() {
+    public void shouldReturnNullGetMostPlayerNegativeValue() {//6
 
         GameStore store = new GameStore();
         Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
@@ -86,7 +87,7 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldRegisteredAddPlayTime() {
+    public void shouldRegisteredAddPlayTime() {//7
 
         GameStore store = new GameStore();
 
@@ -100,7 +101,7 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldGetMostPlayerEqualsZero() {
+    public void shouldGetMostPlayerEqualsZero() {// 9
 
         GameStore store = new GameStore();
         Game game = store.publishGame("Counter-Strike", "Shooter");
@@ -112,29 +113,9 @@ public class GameStoreTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void TestSumGenreTwoGames() {
-        GameStore store = new GameStore();
-        Game game = store.publishGame("Diablo", "RPG");
-        Game game1 = store.publishGame("Wow", "RPG");
-        Game game3 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
-
-        Player player = new Player("Виктор");
-        player.installGame(game);
-        player.installGame(game1);
-        player.installGame(game3);
-        player.play(game, 3);
-        player.play(game1, 2);
-        player.play(game3, 1);
-        player.play(game1, 1);
-
-        int expected = 3;
-        int actual = player.sumGenre("RPG");
-        assertEquals(expected, actual);
-    }
 
     @Test
-    public void shouldGetSumPlayedTime() {
+    public void shouldGetSumPlayedTime() {//10
 
         GameStore store = new GameStore();
 
@@ -148,7 +129,7 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldGetSumOnePlayedTime() {
+    public void shouldGetSumOnePlayedTime() {// 13
 
         GameStore store = new GameStore();
 
@@ -162,7 +143,22 @@ public class GameStoreTest {
     }
 
     @Test
-    public void shouldReturnZeroGetSumPlayedTime() {
+    public void shouldGetSumZeroPlayedTime() {
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Витя", 0);
+        store.addPlayTime("Влад", 0);
+        store.addPlayTime("Костя", 0);
+
+        int actual = store.getSumPlayedTime();
+        int expected = 0;
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldReturnZeroGetSumPlayedTime() {//11
 
         GameStore store = new GameStore();
 
